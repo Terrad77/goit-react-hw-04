@@ -1,55 +1,38 @@
 import css from './App.module.css';
-import initialContacts from '../../data/initialContacts.json';
-import { useState, useEffect } from 'react';
-import ContactForm from '../ContactForm/ContactForm';
-import ContactList from '../ContactList/ContactList';
-import SearchBox from '../SearchBox/SearchBox';
-
-//ф-ція що зчитує значення localStorage
-const getInitialContacts = () => {
-  const savedContacts = window.localStorage.getItem('contacts');
-  return savedContacts !== null ? JSON.parse(savedContacts) : initialContacts;
-};
+import { useEffect, useState } from 'react';
+//npm install axios
+import axios from 'axios';
+// npm install --save react-modal
+import Modal from 'react-modal';
+//npm install react-hot-toast
+import SearchBar from '../SearchBar/SearchBar';
+import ImageGallery from '../ImageGallery/ImageGallery';
+import { fetchImages } from '../../image-api';
 
 export default function App() {
-  const [contacts, setContacts] = useState(getInitialContacts); // початковий стан контактів
-  const [filter, setFilter] = useState(''); // початковий стан фільтра пошуку SearchBox
+  const [images, setImages] = useState([]);
 
-  // змінна де зберігаємо відфільтровані контакти не записуючи в стан, пропс до ContactList
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
-
-  // для колекції елементів використовують функціональну форму сеттеру!
-  // ф-ція повертає змінений стану контактів (додавання)
-  const addContact = newContact => {
-    setContacts(prevContacts => {
-      return [...prevContacts, newContact];
-    });
+  const handleSearch = async newQuery => {
+    const data = await fetchImages(newQuery);
+    setImages(data);
   };
 
-  // ф-ція повертає змінений стану контактів (видалення)
-  const deleteContact = contactId => {
-    setContacts(prevContacts => {
-      return prevContacts.filter(contact => contact.id !== contactId);
-    });
-  };
-
-  // Збереження контактів у локальному сховищі при зміні станів
-  useEffect(() => {
-    try {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
-    } catch (error) {
-      console.error('Error storing contacts or filter in localStorage:', error);
-    }
-  }, [contacts]);
+  // useEffect(() => {
+  //   async function getImages() {
+  //     try {
+  //       const data = await fetchImages();
+  //       setImages(data);
+  //     } catch (error) {
+  //       console.error('Error fetching images:', error);
+  //     }
+  //   }
+  //   getImages();
+  // }, []);
 
   return (
     <div className={css.container}>
-      <h1>Phonebook</h1>
-      <ContactForm onAdd={addContact} />
-      <SearchBox value={filter} onChange={setFilter} />
-      <ContactList contacts={filteredContacts} onDelete={deleteContact} />
+      <SearchBar onSearch={handleSearch} />
+      {images.length > 0 && <ImageGallery images={images} />}
     </div>
   );
 }
