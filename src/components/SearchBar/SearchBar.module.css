@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: center;
   padding: 4px 24px;
-
   background-color: rgb(10, 10, 190);
 }
 .form {
@@ -24,11 +23,10 @@
   text-decoration: none;
 }
 .btn:hover,
-.btn:focus,
-.btn:active {
+.btn:focus {
   border: none;
-  color: inherit;
-  text-decoration: none;
+  color: black;
+  outline: none;
 }
 
 .input {

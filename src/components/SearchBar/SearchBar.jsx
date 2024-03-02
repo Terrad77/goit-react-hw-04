@@ -1,8 +1,9 @@
 import css from './SearchBar.module.css';
 import { IoSearchOutline } from 'react-icons/io5';
-
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
+//npm install react-hot-toast
+import { useToaster } from 'react-hot-toast';
 
 // схема валідації input
 const SearchFormSchema = Yup.object().shape({
@@ -10,13 +11,21 @@ const SearchFormSchema = Yup.object().shape({
 });
 
 export default function SearchBar({ onSearch }) {
+  const toast = useToaster();
+
+  const handleSubmit = async (values, actions) => {
+    if (!values.query.trim()) {
+      toast.error('Please enter text to search images!');
+      return;
+    }
+    onSearch(values.query);
+    actions.resetForm();
+  };
+
   return (
     <Formik
       initialValues={{ query: '' }}
-      onSubmit={(values, actions) => {
-        onSearch(values.query);
-        actions.resetForm();
-      }}
+      onSubmit={handleSubmit}
       validationSchema={SearchFormSchema}
     >
       <header className={css.header}>
