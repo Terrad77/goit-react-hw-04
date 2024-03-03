@@ -18,8 +18,8 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const toast = useToaster();
   const [selectedImage, setSelectedImage] = useState(null);
-  const [modal, setModal] = useState(false);
-  const [modalContent, setModalContent] = useState();
+  // const [modal, setModal] = useState(false);
+  // const [modalContent, setModalContent] = useState();
 
   useEffect(() => {
     //пропустити монтування за умовою
@@ -56,6 +56,7 @@ export default function App() {
   const handleLoadMore = () => {
     setPage(page + 1);
   };
+
   const openModal = image => {
     setSelectedImage(image);
   };
@@ -73,14 +74,12 @@ export default function App() {
       )}
       {isLoading && <Loader />}
       {images.length > 0 && <LoadMoreBtn onClick={handleLoadMore} />}
-      {modal && (
+      {selectedImage && (
         <ImageModal
-          isOpen={!!selectedImage}
-          onRequestClose={closeModal}
-          imageUrl={selectedImage?.largeImageURL}
-          imageAlt={selectedImage?.tags}
-          closeModal={closeModal}
-          content={modalContent}
+          isOpen={true}
+          onRequestClose={() => setSelectedImage(null)}
+          imageUrl={selectedImage.urls.large}
+          imageAlt={selectedImage.alt}
         />
       )}
     </div>
