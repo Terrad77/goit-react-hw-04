@@ -14,10 +14,10 @@ export default function SearchBar({ onSearch }) {
   const toast = useToaster();
 
   const handleSubmit = async (values, actions) => {
-    if (values.query.trim() == '') {
+    if (values.query.trim() === '') {
       // toast.dismiss();
       toast.error('Please enter text to search images!');
-
+      console.log('Please enter text to search images!');
       return;
     }
     onSearch(values.query);

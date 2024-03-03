@@ -20,7 +20,7 @@ export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
-    //пропустити монтування за умовою
+    // пропустити монтування за умовою
     if (searchQuery === '') {
       return;
     }
@@ -63,7 +63,6 @@ export default function App() {
   const openModal = image => {
     setSelectedImage(image);
   };
-  console.log(selectedImage);
 
   const closeModal = () => {
     setSelectedImage(null);
@@ -72,7 +71,8 @@ export default function App() {
   return (
     <div className={css.container}>
       <SearchBar onSearch={handleSearch} />
-      {error && <Toaster />}
+      {/* {error && <Toaster />} */}
+      <Toaster />
       {images.length > 0 && (
         <ImageGallery images={images} onImageClick={openModal} />
       )}
