@@ -16,7 +16,7 @@ export default function App() {
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
-  const toast = useToaster();
+  // const toast = useToaster();
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
