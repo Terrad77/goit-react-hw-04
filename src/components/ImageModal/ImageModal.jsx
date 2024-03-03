@@ -21,6 +21,7 @@ const ImageModal = ({ isOpen, onRequestClose, imageUrl, imageAlt }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Image Modal"
+      style={customStyles}
     >
       <img src={imageUrl} alt={imageAlt} />
       <button onClick={onRequestClose}>Close</button>

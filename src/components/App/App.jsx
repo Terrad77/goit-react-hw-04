@@ -18,8 +18,6 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const toast = useToaster();
   const [selectedImage, setSelectedImage] = useState(null);
-  // const [modal, setModal] = useState(false);
-  // const [modalContent, setModalContent] = useState();
 
   useEffect(() => {
     //пропустити монтування за умовою
@@ -45,12 +43,17 @@ export default function App() {
 
   //ф-ція submit форми
   const handleSearch = newQuery => {
+    //перевірка чи нове query при сабміті
+    if (newQuery === searchQuery) {
+      return;
+    }
     //початкові стани при новому сабміті
     setSearchQuery(newQuery);
     setPage(1);
     setImages([]);
     setIsLoading(true);
     setError(false);
+    setSelectedImage(null);
   };
 
   const handleLoadMore = () => {
@@ -59,11 +62,12 @@ export default function App() {
 
   const openModal = image => {
     setSelectedImage(image);
+    console.log(selectedImage);
   };
 
-  const closeModal = () => {
-    setSelectedImage(null);
-  };
+  // const closeModal = () => {
+  //   setSelectedImage(null);
+  // };
 
   return (
     <div className={css.container}>
@@ -74,7 +78,7 @@ export default function App() {
       )}
       {isLoading && <Loader />}
       {images.length > 0 && <LoadMoreBtn onClick={handleLoadMore} />}
-      {selectedImage && (
+      {selectedImage !== null && (
         <ImageModal
           isOpen={true}
           onRequestClose={() => setSelectedImage(null)}
