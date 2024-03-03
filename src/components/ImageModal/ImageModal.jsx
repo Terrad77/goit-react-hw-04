@@ -6,6 +6,7 @@ const ImageModal = ({ isOpen, onRequestClose, imageUrl, imageAlt }) => {
   const customStyles = {
     overlay: {
       backgroundColor: 'rgba(0, 0, 0, 0.75)',
+      overflow: 'auto', // allow scrolling
     },
     content: {
       top: '50%',
@@ -16,6 +17,7 @@ const ImageModal = ({ isOpen, onRequestClose, imageUrl, imageAlt }) => {
       transform: 'translate(-50%, -50%)',
     },
   };
+
   return (
     <Modal
       isOpen={isOpen}

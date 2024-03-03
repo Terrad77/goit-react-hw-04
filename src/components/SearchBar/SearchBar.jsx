@@ -15,6 +15,7 @@ export default function SearchBar({ onSearch }) {
 
   const handleSubmit = async (values, actions) => {
     if (!values.query.trim()) {
+      toast.dismiss();
       toast.error('Please enter text to search images!');
       return;
     }

@@ -62,12 +62,12 @@ export default function App() {
 
   const openModal = image => {
     setSelectedImage(image);
-    console.log(selectedImage);
   };
+  console.log(selectedImage);
 
-  // const closeModal = () => {
-  //   setSelectedImage(null);
-  // };
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
 
   return (
     <div className={css.container}>
@@ -81,8 +81,8 @@ export default function App() {
       {selectedImage !== null && (
         <ImageModal
           isOpen={true}
-          onRequestClose={() => setSelectedImage(null)}
-          imageUrl={selectedImage.urls.large}
+          onRequestClose={closeModal}
+          imageUrl={selectedImage.urls.regular}
           imageAlt={selectedImage.alt}
         />
       )}
