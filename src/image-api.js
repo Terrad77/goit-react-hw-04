@@ -1,7 +1,7 @@
 //npm install axios
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://api.unsplash.com';
+axios.defaults.baseURL = 'https://api.unsplash.co';
 axios.defaults.params = {
   client_id: 'Z_AJ42tCYRi9ez9R3kTo14ZRpWfnHT2xNXTyYUKcP6Q',
 };
