@@ -1,8 +1,17 @@
+import css from './ImageModal.module.css';
 //npm install react-modal
 import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
-const ImageModal = ({ isOpen, onRequestClose, imageUrl, imageAlt }) => {
+const ImageModal = ({
+  isOpen,
+  onRequestClose,
+  imageUrl,
+  imageAlt,
+  likes,
+  author,
+  description,
+}) => {
   const customStyles = {
     overlay: {
       backgroundColor: 'rgba(0, 0, 0, 0.75)',
@@ -26,6 +35,17 @@ const ImageModal = ({ isOpen, onRequestClose, imageUrl, imageAlt }) => {
       style={customStyles}
     >
       <img src={imageUrl} alt={imageAlt} />
+      <div className={css.describe}>
+        <p>
+          <b>author:</b> {author}
+        </p>
+        <p>
+          <b>likes:</b> {likes}
+        </p>
+        <p>
+          <b>description:</b> {description}
+        </p>
+      </div>
       <button onClick={onRequestClose}>Close</button>
     </Modal>
   );

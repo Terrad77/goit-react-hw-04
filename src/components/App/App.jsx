@@ -6,7 +6,7 @@ import ImageGallery from '../ImageGallery/ImageGallery';
 import { fetchImages } from '../../image-api';
 import Loader from '../Loader/Loader';
 //npm install react-hot-toast
-import { Toaster, useToaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ImageModal from '../ImageModal/ImageModal';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
@@ -17,7 +17,7 @@ export default function App() {
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
-  // const toast = useToaster();
+
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
@@ -88,6 +88,9 @@ export default function App() {
               onRequestClose={closeModal}
               imageUrl={selectedImage.urls.regular}
               imageAlt={selectedImage.alt}
+              likes={selectedImage.likes}
+              author={selectedImage.user.name}
+              description={selectedImage.description}
             />
           )}
         </>
