@@ -9,6 +9,7 @@ import Loader from '../Loader/Loader';
 import { Toaster, useToaster } from 'react-hot-toast';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ImageModal from '../ImageModal/ImageModal';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 export default function App() {
   const [images, setImages] = useState([]);
@@ -71,20 +72,25 @@ export default function App() {
   return (
     <div className={css.container}>
       <SearchBar onSearch={handleSearch} />
-      {/* {error && <Toaster />} */}
       <Toaster />
-      {images.length > 0 && (
-        <ImageGallery images={images} onImageClick={openModal} />
-      )}
-      {isLoading && <Loader />}
-      {images.length > 0 && <LoadMoreBtn onClick={handleLoadMore} />}
-      {selectedImage !== null && (
-        <ImageModal
-          isOpen={true}
-          onRequestClose={closeModal}
-          imageUrl={selectedImage.urls.regular}
-          imageAlt={selectedImage.alt}
-        />
+      {error ? (
+        <ErrorMessage />
+      ) : (
+        <>
+          {images.length > 0 && (
+            <ImageGallery images={images} onImageClick={openModal} />
+          )}
+          {isLoading && <Loader />}
+          {images.length > 0 && <LoadMoreBtn onClick={handleLoadMore} />}
+          {selectedImage !== null && (
+            <ImageModal
+              isOpen={true}
+              onRequestClose={closeModal}
+              imageUrl={selectedImage.urls.regular}
+              imageAlt={selectedImage.alt}
+            />
+          )}
+        </>
       )}
     </div>
   );
